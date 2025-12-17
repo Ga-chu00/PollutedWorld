@@ -41,11 +41,9 @@ W PollutedWorld zostały dodane między innymi:
 ## Crafting mikstury antyradiacyjnej
 
 - Wykonuje się na stole alchemicznym  
-- Składniki:  
-  - **SLIME_BLOCK** (możesz zmienić w config)  
-  - **GLOWSTONE_DUST**  
-  - **FERMENTED_SPIDER_EYE**  
-  - **GLASS_BOTTLE**  
+- Składniki:
+- **butelek na wodę**
+  - **Jasnopył**   
 - Efekt: Zielony bossbar z czasem działania mikstury  
 - Można wypić kolejną miksturę po zakończeniu poprzedniej – czas się odnawia, nie tworzy nowego bossbara  
 
