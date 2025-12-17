@@ -1,0 +1,5 @@
+radiation:
+  damage: 1.0
+
+antidote:
+  duration: 180

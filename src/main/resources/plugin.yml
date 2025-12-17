@@ -1,0 +1,15 @@
+name: Pollution
+version: 0.1
+main: PollutedWorld.Main
+api-version: 1.21
+
+commands:
+  safezone:
+    description: Zarządzanie bezpiecznymi strefami
+
+
+permissions:
+  pollution.safezone:
+    description: Dostęp do komendy /safezone
+    default: op
+
