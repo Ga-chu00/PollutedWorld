@@ -18,8 +18,8 @@ public class RadiationManager {
     private final RegionManager region;
     private final AntidoteManager antidote;
 
-    // TYLKO żółte bossbary skażenia
-    private final Map<UUID, BossBar> bars = new HashMap<>();
+    // Żółty bossbar dla skażenia
+    private final Map<UUID, BossBar> yellowBars = new HashMap<>();
 
     public RadiationManager(Plugin plugin, RegionManager region, AntidoteManager antidote) {
         this.plugin = plugin;
@@ -29,37 +29,41 @@ public class RadiationManager {
     }
 
     private void start() {
-        Bukkit.getScheduler().runTaskTimer(this.plugin, () -> {
+        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
 
             for (Player p : Bukkit.getOnlinePlayers()) {
 
-                boolean inSafeZone = region.isInSafeZone(p.getLocation());
-                boolean hasAntidote = antidote.isProtected(p);
+                boolean safe = region.isInSafeZone(p.getLocation());
+                boolean protectedByPotion = antidote.isProtected(p); // Czy gracz ma miksturę
 
-                // ☣ SKAŻONY TEREN
-                if (!inSafeZone) {
-
-                    // ŻÓŁTY bossbar ZAWSZE w skażeniu
-                    if (!bars.containsKey(p.getUniqueId())) {
+                // Tworzymy lub aktualizujemy żółty bossbar skażenia
+                if (!safe) {
+                    if (!yellowBars.containsKey(p.getUniqueId())) {
                         BossBar bar = BossBarUtil.createYellow("§e☣ Strefa promieniowania");
                         bar.addPlayer(p);
-                        bars.put(p.getUniqueId(), bar);
+                        yellowBars.put(p.getUniqueId(), bar);
                     }
 
-                    // Obrażenia TYLKO jeśli brak antyradiacji
-                    if (!hasAntidote) {
+                    // Zadajemy obrażenia tylko jeśli gracz NIE ma mikstury
+                    if (!protectedByPotion) {
                         p.damage(1.0);
                     }
 
                 } else {
-                    // 🟢 Gracz w safezone → usuń żółty bossbar
-                    BossBar bar = bars.remove(p.getUniqueId());
-                    if (bar != null) {
-                        bar.removeAll();
-                    }
+                    // Jeśli gracz jest w strefie bezpiecznej, usuwamy bossbar
+                    BossBar bar = yellowBars.remove(p.getUniqueId());
+                    if (bar != null) bar.removeAll();
                 }
+
+                // Zielony bossbar mikstury działa niezależnie w AntidoteManager
             }
 
-        }, 0L, 40L);
+        }, 0L, 40L); // co 2 sekundy (40 ticków)
     }
 }
+
+
+
+
+
+
