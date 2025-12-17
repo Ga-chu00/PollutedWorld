@@ -33,8 +33,7 @@ W PollutedWorld zostały dodane między innymi:
 
 - `/safezone` – tworzenie strefy bezpiecznej (cała wysokość)  
 - Crafting mikstury antyradiacyjnej – użycie **stole alchemicznego**  
-
-> Komendy związane z logami bloków zostały usunięte i plugin nie zapisuje logów.  
+ 
 
 ---
 
